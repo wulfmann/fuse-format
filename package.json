@@ -2,7 +2,7 @@
   "name": "fuse-format",
   "version": "1.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "compile": "babel -d lib/ src/",
     "prepublish": "npm run compile"
