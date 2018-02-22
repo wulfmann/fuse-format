@@ -1,4 +1,5 @@
-const fuseFormat = require('./src/index')
+const fuseFormat = require('./lib')
+
 const data = [
   {
     one: {
@@ -15,4 +16,6 @@ const data = [
   }
 ]
 
-console.log(fuseFormat(data))
+const result = fuseFormat(data)
+
+console.log(result)
