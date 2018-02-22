@@ -106,3 +106,12 @@ This returns:
   'again.three.nested'
 ]
 ```
+
+## Examples
+Examples can be found in the examples folder on [Github]
+
+## Development
+PR's are welcome from any level.
+
+
+[Github]: https://github.com/wulfmann/fuse-format

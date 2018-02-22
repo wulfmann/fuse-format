@@ -9,6 +9,7 @@
   },
   "author": "Joseph Snell",
   "license": "MIT",
+  "repository": "github:wulfmann/fuse-format",
   "babel": {
     "presets": [
       "es2015",
