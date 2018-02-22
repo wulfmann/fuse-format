@@ -2,6 +2,14 @@
 
 Small utility that takes an array or an object, and returns an array of 'key-strings' for each path in the item. This is useful for libraries like Fusejs that require an array of keys for the fuzzy search.
 
+## Install
+
+[![npm version](https://badge.fury.io/js/fuse-format.svg)](https://badge.fury.io/js/fuse-format)
+
+```js
+npm i fuseFormat --save
+```
+
 ## Include
 Include package at the top of your project.
 
