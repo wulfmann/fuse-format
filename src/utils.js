@@ -11,7 +11,7 @@ const flatten = (item, result = {}, lastKey = '') => {
   if (isObject(item)) {
     const keys = Object.keys(item)
     keys.forEach(k => {
-      flatten(item[k], result, getNextKey(k))
+      flatten(item[k], result, getNext(k))
     })
   } else if (isArray(item)) {
     item.forEach(el => {
