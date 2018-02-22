@@ -1,8 +1,22 @@
 # Formatter for Fuse js
 
-Small utility that takes an array of a mix of objects and arrays, and returns all of the unique, nested key-strings. This is usesful for tools like Fuse js which use an array of keys to fuzzy search through arrays of objects.
+Small utility that takes an array or an object, and returns an array of 'key-strings' for each path in the item. This is useful for libraries like Fusejs that require an array of keys for the fuzzy search.
 
-## Example
+## Include
+Include package at the top of your project.
+
+```js
+const fuseFormat = require('fuseFormat')
+```
+
+or
+
+```js
+import fuseFormat from 'fuseFormat'
+```
+
+## Examples
+### Array Example
 
 ```js
 const fuseFormat = require('fuseFormat')
@@ -13,66 +27,74 @@ const data = [
       hi: 'does this work',
       there: null
     },
-    two : [
-      {
-        hi: null,
-        again: null,
-        six: [
-          {
-            four: {
-              five: [
-                {
-                  imReallyNested: null
-                }
-              ]
-            }
-          }
-        ]
-      }
-    ]
+    two : [ { six: [ { four: null } ] } ]
   },
   {
-    three: null
-  },
-  {
-    one: {
-      four: {
-        five: {
-          six: {
-            seven: null,
-            eight: [
-              {
-                hi: ''
-              }
-            ]
-          }
-        }
-      }
+    three: {
+      iam: 'really',
+      nested: null
     }
   }
 ]
 
 fuseFormat(data)
+```
 
-// Returns
+This returns:
 
+
+```js
 [
   'one',
   'one.hi',
   'one.there',
   'two',
-  'two.hi',
-  'two.again',
   'two.six',
   'two.six.four',
-  'two.six.four.five',
-  'two.six.four.five.imReallyNested',
   'three',
-  'one.four',
-  'one.four.five',
-  'one.four.five.six',
-  'one.four.five.six.seven',
-  'one.four.five.six.eight',
-  'one.four.five.six.eight.hi'
+  'three.iam',
+  'three.nested'
+]
+```
+
+### Object Example
+
+```js
+const fuseFormat = require('fuseFormat')
+
+const data = {
+  hi: {
+    one: {
+      hi: 'does this work',
+      there: null
+    },
+    two : [ { six: [ { four: null } ] } ]
+  },
+  again: {
+    three: {
+      iam: 'really',
+      nested: null
+    }
+  }
+}
+
+fuseFormat(data)
+```
+
+This returns:
+
+```js
+[
+  'hi',
+  'hi.one',
+  'hi.one.hi',
+  'hi.one.there',
+  'hi.two',
+  'hi.two.six',
+  'hi.two.six.four',
+  'again',
+  'again.three',
+  'again.three.iam',
+  'again.three.nested'
 ]
 ```

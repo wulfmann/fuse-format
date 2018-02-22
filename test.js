@@ -1,46 +1,16 @@
 const fuseFormat = require('./src/index')
-
 const data = [
   {
     one: {
       hi: 'does this work',
       there: null
     },
-    two: [
-      {
-        hi: null,
-        again: null,
-        six: [
-          {
-            four: {
-              five: [
-                {
-                  imReallyNested: null
-                }
-              ]
-            }
-          }
-        ]
-      }
-    ]
+    two: [{ six: [{ four: null }] }]
   },
   {
-    three: null
-  },
-  {
-    one: {
-      four: {
-        five: {
-          six: {
-            seven: null,
-            eight: [
-              {
-                hi: ''
-              }
-            ]
-          }
-        }
-      }
+    three: {
+      iam: 'really',
+      nested: []
     }
   }
 ]
