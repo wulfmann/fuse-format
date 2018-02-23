@@ -1,11 +1,18 @@
 'use strict'
 
-const { flatten, separate, expand } = require('./utils')
+import la from 'lazy-ass'
 
-module.exports = arr => {
-  const all = Object.keys(flatten(arr))
-    .map(separate)
-    .map(expand)
+import { is, flatten } from './utils'
 
-  return [...new Set([].concat.apply([], all))]
+const debug = require('debug')('fuse-format')
+
+export default (src, config) => {
+  debug('Source: ', src)
+
+  la((is.object(src) || is.array(src)), 'Source must be Array or Object: ', src)
+
+  const flattenedSource = flatten(src, config)
+  debug('Result : ', flattenedSource)
+
+  return Object.keys(flattenedSource)
 }
