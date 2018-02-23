@@ -23,92 +23,128 @@ or
 import fuseFormat from 'fuseFormat'
 ```
 
-## Examples
-### Array Example
+## Options
+A few options are available to you to tweak your response.
+
+Key | Type | Default
+--- | --- | ---
+includeIndexes | boolean | false
+exclude | string || boolean | `null`
+depth | integer | 3
+
+
+##### includeIndexes
+```includeIndexes``` sets whether or not to include the array index in the result keystring.
+
+Example:
 
 ```js
-const fuseFormat = require('fuseFormat')
+const data = [ { iHaveAnArray: [ { hello: 'there' } ] } ]
 
-const data = [
-  {
-    one: {
-      hi: 'does this work',
-      there: null
-    },
-    two : [ { six: [ { four: null } ] } ]
-  },
-  {
-    three: {
-      iam: 'really',
-      nested: null
-    }
-  }
-]
+fuseFormat(data, { includeIndexes: true })
 
-fuseFormat(data)
+// returns [ '0.iHaveAnArray', '0.iHaveAnArray.0.hello' ]
+
 ```
 
-This returns:
+##### exclude
+```exclude``` accepts either a string or an array of strings of keys or patterns that you would like to exclude from the results.
 
+Example: 
 
 ```js
-[
-  'one',
-  'one.hi',
-  'one.there',
-  'two',
-  'two.six',
-  'two.six.four',
-  'three',
-  'three.iam',
-  'three.nested'
-]
+const data = { oh: [ { hai: { mark: '' } } ] }
+
+fuseFormat(data, { exclude: 'mark' })
+
+// returns ['oh', 'oh.hai']
 ```
 
-### Object Example
+Make sure you know what you are excluding because it works from the top down. For example:
 
 ```js
-const fuseFormat = require('fuseFormat')
 
 const data = {
-  hi: {
-    one: {
-      hi: 'does this work',
-      there: null
-    },
-    two : [ { six: [ { four: null } ] } ]
-  },
-  again: {
-    three: {
-      iam: 'really',
-      nested: null
+  i: {
+    am: {
+      deeply: {
+        nested: [
+          {
+            hi: ''
+          }
+        ]
+      }
     }
   }
 }
 
-fuseFormat(data)
+fuseFormat(data, { exclude: ['am'] })
+
+// returns ['i']
 ```
 
-This returns:
+Pattern Example:
 
 ```js
-[
-  'hi',
-  'hi.one',
-  'hi.one.hi',
-  'hi.one.there',
-  'hi.two',
-  'hi.two.six',
-  'hi.two.six.four',
-  'again',
-  'again.three',
-  'again.three.iam',
-  'again.three.nested'
-]
+const data = {
+  i: {
+    am: {
+      deeply: {
+        nested: [
+          {
+            hi: ''
+          }
+        ]
+      }
+    }
+  },
+  so: {
+    i: {
+      am: null
+    }
+  }
+}
+
+fuseFormat(data, exclude: ['deeply.nested'])
+
+// returns ['i', 'i.am', 'i.am.deeply', 'so', 'so.i', 'so.i.am']
+```
+
+
+##### depth
+```depth``` accepts an integer and sets how deep to traverse the source.
+
+Example:
+
+```js
+const data = {
+  i: {
+    am: {
+      deeply: {
+        nested: [
+          {
+            hi: ''
+          }
+        ]
+      }
+    }
+  }
+}
+
+fuseFormat(data, { depth: 2 })
+
+// returns ['i', 'i.am']
+
+```
+
+If you would like to run in ```DEBUG``` mode, run your application with the DEBUG=fuse-format env variable.
+
+```js
+DEBUG=fuse-format npm run dev
 ```
 
 ## Examples
-Examples can be found in the examples folder on [Github]
+More examples can be found in the examples folder the repo on: [Github]
 
 ## Development
 PR's are welcome from any level.

@@ -1,11 +1,20 @@
 'use strict'
 
-const { flatten, separate, expand } = require('./utils')
+import { is, flatten } from './utils'
 
-module.exports = arr => {
-  const all = Object.keys(flatten(arr))
-    .map(separate)
-    .map(expand)
+const debug = require('debug')('fuse-format')
 
-  return [...new Set([].concat.apply([], all))]
+module.exports = (src, config) => {
+  debug('Source: ', src)
+  debug('Config: ', config)
+
+  if(!is.object(src) && !is.array(src)) {
+    console.log(src)
+    throw new Error('Source must be Array or Object')
+  }
+
+  const flattenedSource = flatten(src, config)
+  debug('Result : ', flattenedSource)
+
+  return Object.keys(flattenedSource)
 }
