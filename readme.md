@@ -28,12 +28,13 @@ A few options are available to you to tweak your response.
 
 Key | Type | Default
 --- | --- | ---
-`includeIndexes` | boolean | false
-`exclude` | string || boolean | null
-`depth` | integer | 3
+includeIndexes | boolean | false
+exclude | string || boolean | `null`
+depth | integer | 3
 
 
-`includeIndexes` sets whether or not to include the array index in the result keystring.
+##### includeIndexes
+```includeIndexes``` sets whether or not to include the array index in the result keystring.
 
 Example:
 
@@ -46,7 +47,8 @@ fuseFormat(data, { includeIndexes: true })
 
 ```
 
-`exclude` accepts either a string or an array of strings of keys or patterns that you would like to exclude from the results.
+##### exclude
+```exclude``` accepts either a string or an array of strings of keys or patterns that you would like to exclude from the results.
 
 Example: 
 
@@ -109,7 +111,8 @@ fuseFormat(data, exclude: ['deeply.nested'])
 ```
 
 
-`depth` accepts an integer and sets how deep to traverse the source.
+##### depth
+```depth``` accepts an integer and sets how deep to traverse the source.
 
 Example:
 
@@ -134,7 +137,7 @@ fuseFormat(data, { depth: 2 })
 
 ```
 
-If you would like to run in `DEBUG` mode, run your application with the DEBUG=fuse-format env variable.
+If you would like to run in ```DEBUG``` mode, run your application with the DEBUG=fuse-format env variable.
 
 ```js
 DEBUG=fuse-format npm run dev

@@ -1,6 +1,5 @@
 'use strict'
 
-import la from 'lazy-ass'
 const debug = require('debug')('fuse-format')
 
 // Type Checking
@@ -53,7 +52,10 @@ export const flatten = (item, config, result = {}, last = '', count = 0) => {
       */
 
       if (exclude) {
-        la((is.string(exclude) || is.array(exclude)), 'exclude option must be array or string ', exclude)
+        if(!is.string(exclude) || !is.array(exclude)) {
+          console.log(exclude)
+          throw new Error('exclude option must be array or string')
+        }
 
         const lastString = last.split('.')
         const lastWord = getLast(lastString)

@@ -27,8 +27,6 @@
     "babel-watch": "^2.0.7"
   },
   "dependencies": {
-    "check-more-types": "^2.24.0",
-    "debug": "^3.1.0",
-    "lazy-ass": "^1.6.0"
+    "debug": "^3.1.0"
   }
 }
