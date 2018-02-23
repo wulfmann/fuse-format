@@ -6,8 +6,9 @@ import { is, flatten } from './utils'
 
 const debug = require('debug')('fuse-format')
 
-export default (src, config) => {
+module.exports = (src, config) => {
   debug('Source: ', src)
+  debug('Config: ', config)
 
   la((is.object(src) || is.array(src)), 'Source must be Array or Object: ', src)
 

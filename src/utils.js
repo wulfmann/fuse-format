@@ -1,18 +1,23 @@
 'use strict'
 
+import la from 'lazy-ass'
+const debug = require('debug')('fuse-format')
+
 // Type Checking
 export const is = {
   object: src => Object.prototype.toString.call(src) === '[object Object]',
-  array: src => Object.prototype.toString.call(src) === '[object Array]'
+  array: src => Object.prototype.toString.call(src) === '[object Array]',
+  string: src => typeof src === 'string'
 }
 
 const getNext = (last, current) => `${last}${last ? '.' : ''}${current}`
+const getLast = arr => arr.slice(arr.length - 1)[0]
 
 // Default Configuration
 const defaults = {
   includeIndexes: false,
   exclude: null,
-  depth: 3
+  depth: 25
 }
 
 export const flatten = (item, config, result = {}, last = '', count = 0) => {
@@ -20,19 +25,16 @@ export const flatten = (item, config, result = {}, last = '', count = 0) => {
   ** Merge defaults with passed configuration.
   */
 
-  const settings = Object.assign({}, defaults, config)
-
-  console.log(count)
+  const { includeIndexes, exclude, depth } = Object.assign({}, defaults, config)
 
   /*
   ** If the depth has been reached,
   ** return.
   */
 
-  if (count >= settings.depth) {
+  if (count >= depth) {
     return
   }
-  
 
   if (is.object(item)) {
     /*
@@ -50,8 +52,21 @@ export const flatten = (item, config, result = {}, last = '', count = 0) => {
       ** Skip it, and go to the next key.
       */
 
-      if (settings.exclude && settings.exclude.includes(current)) {
-        return
+      if (exclude) {
+        la((is.string(exclude) || is.array(exclude)), 'exclude option must be array or string ', exclude)
+
+        const lastString = last.split('.')
+        const lastWord = getLast(lastString)
+
+        const pattern = `${lastWord}.${k}`
+
+        if (is.string(exclude) && (exclude === k || exclude === pattern)) {
+          return
+        }
+
+        if (is.array(exclude) && (exclude.indexOf(k) !== -1 || exclude.indexOf(pattern) !== -1)) {
+          return
+        }
       }
 
       /*
@@ -81,8 +96,8 @@ export const flatten = (item, config, result = {}, last = '', count = 0) => {
       ** index.
       */
 
-      let keystring = settings.includeIndexes ? getNext(last, item.indexOf(el)) : last
-      let counted = settings.includeIndexes ? count + 1 : count
+      let keystring = includeIndexes ? getNext(last, item.indexOf(el)) : last
+      let counted = includeIndexes ? count + 1 : count
 
       /*
       ** Recurse through each object in the array

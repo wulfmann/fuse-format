@@ -4,10 +4,10 @@
   "description": "",
   "main": "lib/index.js",
   "scripts": {
-    "dev": "babel-watch src/test.js",
+    "dev": "babel-watch test.js",
     "compile": "babel -d lib/ src/",
     "prepublish": "npm run compile",
-    "debug": "DEBUG=fuse-format babel-watch src/test.js"
+    "debug": "DEBUG=fuse-format npm run dev"
   },
   "author": "Joseph Snell",
   "license": "MIT",
@@ -17,10 +17,7 @@
       "es2015",
       "stage-0"
     ],
-    "comments": false,
-    "ignore": [
-      "src/test.js"
-    ]
+    "comments": false
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
