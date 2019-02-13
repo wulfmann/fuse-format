@@ -14,13 +14,13 @@ npm i fuseFormat --save
 Include package at the top of your project.
 
 ```js
-const fuseFormat = require('fuseFormat')
+const fuseFormat = require('fuse-format')
 ```
 
 or
 
 ```js
-import fuseFormat from 'fuseFormat'
+import fuseFormat from 'fuse-format'
 ```
 
 ## Options
