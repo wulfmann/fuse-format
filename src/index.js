@@ -2,19 +2,12 @@
 
 import { is, flatten } from './utils'
 
-const debug = require('debug')('fuse-format')
-
-module.exports = (src, config) => {
-  debug('Source: ', src)
-  debug('Config: ', config)
-
-  if(!is.object(src) && !is.array(src)) {
-    console.log(src)
+export default (src, config) => {
+  if (!is.object(src) && !is.array(src)) {
     throw new Error('Source must be Array or Object')
   }
 
-  const flattenedSource = flatten(src, config)
-  debug('Result : ', flattenedSource)
+  const flattened = flatten(src, config)
 
-  return Object.keys(flattenedSource)
+  return Object.keys(flattened)
 }

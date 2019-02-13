@@ -1,7 +1,5 @@
 'use strict'
 
-const debug = require('debug')('fuse-format')
-
 // Type Checking
 export const is = {
   object: src => Object.prototype.toString.call(src) === '[object Object]',
@@ -20,27 +18,11 @@ const defaults = {
 }
 
 export const flatten = (item, config, result = {}, last = '', count = 0) => {
-  /*
-  ** Merge defaults with passed configuration.
-  */
-
   const { includeIndexes, exclude, depth } = Object.assign({}, defaults, config)
 
-  /*
-  ** If the depth has been reached,
-  ** return.
-  */
-
-  if (count >= depth) {
-    return
-  }
+  if (count >= depth) { return }
 
   if (is.object(item)) {
-    /*
-    ** If the item is an object, first
-    ** convert the keys of the item to an array.
-    */
-
     const keys = Object.keys(item)
 
     keys.forEach(k => {
@@ -52,8 +34,7 @@ export const flatten = (item, config, result = {}, last = '', count = 0) => {
       */
 
       if (exclude) {
-        if(!is.string(exclude) && !is.array(exclude)) {
-          console.log(exclude)
+        if (!is.string(exclude) && !is.array(exclude)) {
           throw new Error('exclude option must be array or string')
         }
 
@@ -108,12 +89,6 @@ export const flatten = (item, config, result = {}, last = '', count = 0) => {
       flatten(el, config, result, keystring, counted)
     })
   } else {
-    /*
-    ** We've hit the end of a path,
-    ** add the current item to the result
-    ** object.
-    */
-
     result[last] = item
   }
 
