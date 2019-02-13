@@ -137,12 +137,6 @@ fuseFormat(data, { depth: 2 })
 
 ```
 
-If you would like to run in ```DEBUG``` mode, run your application with the DEBUG=fuse-format env variable.
-
-```js
-DEBUG=fuse-format npm run dev
-```
-
 ## Examples
 More examples can be found in the examples folder the repo on: [Github]
 
